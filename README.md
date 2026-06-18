@@ -5,9 +5,45 @@ lifetime tournament history of a player.
 
 ## Install
 
+Requires Python 3.10 or newer and git.
+
+### 1. Clone the repository
+
 ```bash
-pip install -e .
+git clone https://github.com/philhanna/uscf-history.git
+cd uscf-history
 ```
+
+### 2. Create and activate a virtual environment
+
+**Linux / macOS:**
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+**Windows (PowerShell):**
+
+```powershell
+py -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+**Windows (Command Prompt):**
+
+```bat
+py -m venv .venv
+.venv\Scripts\activate.bat
+```
+
+### 3. Install the application
+
+```bash
+pip install .
+```
+
+For development (editable install plus test dependencies), use `pip install -e .`.
 
 ## Usage
 

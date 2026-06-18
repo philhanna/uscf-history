@@ -32,23 +32,23 @@ depends only on ports (`typing.Protocol`); concrete I/O lives in adapters.
 
 ```
 ╔════════════════════════════════════════════════════════════╗
-║  Driving Side (Inbound)                                     ║
-║    uscf.adapters.inbound.cli : main()  ← argparse           ║
+║  Driving Side (Inbound)                                    ║
+║    uscf.adapters.inbound.cli : main()  ← argparse          ║
 ╚════════════════════════════════════════════════════════════╝
                           │ calls
                           ▼
 ╔════════════════════════════════════════════════════════════╗
-║  Application Layer                                          ║
-║    fetch_player_history(...)                                ║
+║  Application Layer                                         ║
+║    fetch_player_history(...)                               ║
 ║    ports: TournamentSource, HistoryWriter, ProgressReporter║
 ╚════════════════════════════════════════════════════════════╝
                           │ implemented by
                           ▼
 ╔════════════════════════════════════════════════════════════╗
 ║  Driven Side (Outbound Adapters)                           ║
-║    UscfApiTournamentSource (urllib HTTP)                    ║
-║    JsonHistoryWriter (file/stdout)                          ║
-║    StderrProgressReporter                                   ║
+║    UscfApiTournamentSource (urllib HTTP)                   ║
+║    JsonHistoryWriter (file/stdout)                         ║
+║    StderrProgressReporter                                  ║
 ╚════════════════════════════════════════════════════════════╝
                           │ uses
                           ▼

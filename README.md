@@ -3,6 +3,8 @@
 Uses the REST API provided by the U. S. Chess Federation to download the
 lifetime tournament history of a player.
 
+See the [USCF Swagger Page](https://ratings-api.uschess.org/swagger/index.html) for details of the API.
+
 ## Install
 
 Requires Python 3.10 or newer and git.

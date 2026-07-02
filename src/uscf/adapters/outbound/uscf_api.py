@@ -18,7 +18,7 @@ DEFAULT_BASE_URL = "https://ratings-api.uschess.org/api/v1/members"
 
 
 class UscfApiTournamentSource:
-    """Fetches tournament sections from ratings-api.uschess.org."""
+    """Fetches tournament games from ratings-api.uschess.org."""
 
     def __init__(self, base_url: str = DEFAULT_BASE_URL) -> None:
         self._base_url = base_url.rstrip("/")
@@ -27,7 +27,7 @@ class UscfApiTournamentSource:
         self, player_id: str, offset: int, page_size: int = DEFAULT_PAGE_SIZE
     ) -> Page:
         url = (
-            f"{self._base_url}/{player_id}/sections"
+            f"{self._base_url}/{player_id}/games"
             f"?offset={offset}&pageSize={page_size}"
         )
         data = self._get_json(url, offset)

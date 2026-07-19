@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.0] - 2026-07-19
+
+### Changed
+- Switched player history source from tournaments to individual
+  games: fetches `{player_id}/games` instead of `{player_id}/sections`,
+  renaming Tournament terminology to Game throughout the domain,
+  application, and adapter layers.
+- Split domain models into one file per class (`game.py`, `page.py`,
+  `player_history.py`) instead of a single `models.py`.
+- Updated README with the refactored architecture and
+  platform-specific install instructions.
+- Ignored `.json` files from test runs.
+- Changed sample player ID in CLI help text.
+
 ## [0.1.0] - 2026-06-17
 
 ### Changed

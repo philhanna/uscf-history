@@ -11,20 +11,20 @@ import sys
 
 from uscf.adapters.outbound.json_writer import JsonHistoryWriter
 from uscf.adapters.outbound.stderr_reporter import StderrProgressReporter
-from uscf.adapters.outbound.uscf_api import UscfApiTournamentSource
+from uscf.adapters.outbound.uscf_api import UscfApiGameSource
 from uscf.application.use_cases import DEFAULT_PAGE_SIZE, fetch_player_history
-from uscf.domain.errors import TournamentSourceError
+from uscf.domain.errors import GameSourceError
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parse_args(argv)
 
-    source = UscfApiTournamentSource()
+    source = UscfApiGameSource()
     reporter = StderrProgressReporter()
     writer = JsonHistoryWriter(output_path=args.output, indent=args.indent)
 
     print(
-        f"Fetching tournament history for player {args.player_id}...",
+        f"Fetching game history for player {args.player_id}...",
         file=sys.stderr,
     )
 
@@ -35,7 +35,7 @@ def main(argv: list[str] | None = None) -> int:
             reporter=reporter,
             page_size=DEFAULT_PAGE_SIZE,
         )
-    except TournamentSourceError as exc:
+    except GameSourceError as exc:
         print(str(exc), file=sys.stderr)
         return 1
 
@@ -47,7 +47,7 @@ def main(argv: list[str] | None = None) -> int:
 
 def _parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Fetch complete US Chess tournament history for a player."
+        description="Fetch complete US Chess game history for a player."
     )
     parser.add_argument("player_id", help="US Chess member ID (e.g. 12877028)")
     parser.add_argument(

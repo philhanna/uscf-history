@@ -1,7 +1,7 @@
 # uscf-history
 
 Uses the REST API provided by the U. S. Chess Federation to download the
-lifetime tournament history of a player.
+lifetime game history of a player.
 
 ## Install
 
@@ -76,13 +76,13 @@ depends only on ports (`typing.Protocol`); concrete I/O lives in adapters.
 ╔════════════════════════════════════════════════════════════╗
 ║  Application Layer                                         ║
 ║    fetch_player_history(...)                               ║
-║    ports: TournamentSource, HistoryWriter, ProgressReporter║
+║    ports: GameSource, HistoryWriter, ProgressReporter      ║
 ╚════════════════════════════════════════════════════════════╝
                           │ implemented by
                           ▼
 ╔════════════════════════════════════════════════════════════╗
 ║  Driven Side (Outbound Adapters)                           ║
-║    UscfApiTournamentSource (urllib HTTP)                   ║
+║    UscfApiGameSource (urllib HTTP)                         ║
 ║    JsonHistoryWriter (file/stdout)                         ║
 ║    StderrProgressReporter                                  ║
 ╚════════════════════════════════════════════════════════════╝
@@ -90,12 +90,12 @@ depends only on ports (`typing.Protocol`); concrete I/O lives in adapters.
                           ▼
 ╔════════════════════════════════════════════════════════════╗
 ║  Domain Layer                                              ║
-║    Tournament, Page, PlayerHistory, TournamentSourceError  ║
+║    Game, Page, PlayerHistory, GameSourceError              ║
 ╚════════════════════════════════════════════════════════════╝
 ```
 
 Data flow: CLI parses args → wires adapters to ports → `fetch_player_history`
-pages through `TournamentSource` → assembles a `PlayerHistory` → `HistoryWriter`
+pages through `GameSource` → assembles a `PlayerHistory` → `HistoryWriter`
 emits JSON. The use case may import ports and domain types only — never adapters.
 
 ## Development

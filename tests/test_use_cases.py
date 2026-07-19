@@ -7,12 +7,12 @@ import pytest
 
 from uscf.adapters.outbound.stderr_reporter import SilentProgressReporter
 from uscf.application.use_cases import fetch_player_history
-from uscf.domain.errors import TournamentSourceError
-from uscf.domain.models import Page, Tournament
+from uscf.domain.errors import GameSourceError
+from uscf.domain.models import Game, Page
 
 
-class FakeTournamentSource:
-    """In-memory :class:`TournamentSource` returning pre-canned pages."""
+class FakeGameSource:
+    """In-memory :class:`GameSource` returning pre-canned pages."""
 
     def __init__(self, pages: list[Page]) -> None:
         self._pages = pages
@@ -24,35 +24,35 @@ class FakeTournamentSource:
 
 
 def _page(count: int, has_next: bool, page_size: int = 100) -> Page:
-    items = [Tournament(raw={"n": i}) for i in range(count)]
+    items = [Game(raw={"n": i}) for i in range(count)]
     return Page(items=items, has_next_page=has_next, page_size=page_size)
 
 
 def test_single_page_history():
-    source = FakeTournamentSource([_page(3, has_next=False)])
+    source = FakeGameSource([_page(3, has_next=False)])
 
     history = fetch_player_history("123", source, SilentProgressReporter())
 
     assert history.player_id == "123"
-    assert len(history.tournaments) == 3
+    assert len(history.games) == 3
     assert source.calls == [(0, 100)]
 
 
 def test_paginates_until_no_next_page():
-    source = FakeTournamentSource(
+    source = FakeGameSource(
         [_page(100, has_next=True), _page(40, has_next=False)]
     )
 
     history = fetch_player_history("123", source, SilentProgressReporter())
 
-    assert len(history.tournaments) == 140
+    assert len(history.games) == 140
     assert source.calls == [(0, 100), (100, 100)]
 
 
 def test_source_error_propagates():
     class BrokenSource:
         def fetch_page(self, player_id, offset, page_size):
-            raise TournamentSourceError("boom")
+            raise GameSourceError("boom")
 
-    with pytest.raises(TournamentSourceError):
+    with pytest.raises(GameSourceError):
         fetch_player_history("123", BrokenSource(), SilentProgressReporter())

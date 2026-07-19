@@ -12,14 +12,14 @@ from typing import Protocol
 from uscf.domain.models import Page, PlayerHistory
 
 
-class TournamentSource(Protocol):
-    """Driven port: a paginated source of a player's tournament sections."""
+class GameSource(Protocol):
+    """Driven port: a paginated source of a player's games."""
 
     def fetch_page(self, player_id: str, offset: int, page_size: int) -> Page:
-        """Return one page of tournaments starting at ``offset``.
+        """Return one page of games starting at ``offset``.
 
         Implementations should raise
-        :class:`uscf.domain.errors.TournamentSourceError` on failure.
+        :class:`uscf.domain.errors.GameSourceError` on failure.
         """
         ...
 

@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "uscf-history"
 version = "0.1.0"
-description = "Fetch complete US Chess tournament history for a player."
+description = "Fetch complete US Chess game history for a player."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }

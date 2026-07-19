@@ -20,12 +20,12 @@ class StderrProgressReporter:
 
     def page_completed(self, page_num: int, page_count: int, total: int) -> None:
         print(
-            f"    Got {page_count} tournaments (total so far: {total})",
+            f"    Got {page_count} games (total so far: {total})",
             file=self._stream,
         )
 
     def finished(self, total: int) -> None:
-        print(f"Done. Total tournaments retrieved: {total}", file=self._stream)
+        print(f"Done. Total games retrieved: {total}", file=self._stream)
 
 
 class SilentProgressReporter:

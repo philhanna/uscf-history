@@ -6,28 +6,28 @@ page) but nothing about HTTP, JSON, or the console.
 
 from __future__ import annotations
 
-from uscf.application.ports import ProgressReporter, TournamentSource
-from uscf.domain.models import PlayerHistory, Tournament
+from uscf.application.ports import GameSource, ProgressReporter
+from uscf.domain.models import Game, PlayerHistory
 
 DEFAULT_PAGE_SIZE = 100  # US Chess API maximum
 
 
 def fetch_player_history(
     player_id: str,
-    source: TournamentSource,
+    source: GameSource,
     reporter: ProgressReporter,
     page_size: int = DEFAULT_PAGE_SIZE,
 ) -> PlayerHistory:
     """Page through ``source`` and assemble the player's full history."""
-    tournaments: list[Tournament] = []
+    games: list[Game] = []
     offset = 0
     page_num = 1
 
     while True:
         reporter.page_started(page_num, offset)
         page = source.fetch_page(player_id, offset, page_size)
-        tournaments.extend(page.items)
-        reporter.page_completed(page_num, len(page.items), len(tournaments))
+        games.extend(page.items)
+        reporter.page_completed(page_num, len(page.items), len(games))
 
         if not page.has_next_page:
             break
@@ -35,5 +35,5 @@ def fetch_player_history(
         offset += page.page_size
         page_num += 1
 
-    reporter.finished(len(tournaments))
-    return PlayerHistory(player_id=player_id, tournaments=tournaments)
+    reporter.finished(len(games))
+    return PlayerHistory(player_id=player_id, games=games)

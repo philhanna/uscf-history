@@ -1,7 +1,7 @@
-"""Outbound adapter: a :class:`TournamentSource` backed by the US Chess REST API.
+"""Outbound adapter: a :class:`GameSource` backed by the US Chess REST API.
 
 Implements the driven port using ``urllib`` and translates transport failures
-into the domain's :class:`TournamentSourceError`.
+into the domain's :class:`GameSourceError`.
 """
 
 from __future__ import annotations
@@ -11,14 +11,14 @@ import urllib.error
 import urllib.request
 
 from uscf.application.use_cases import DEFAULT_PAGE_SIZE
-from uscf.domain.errors import TournamentSourceError
-from uscf.domain.models import Page, Tournament
+from uscf.domain.errors import GameSourceError
+from uscf.domain.models import Game, Page
 
 DEFAULT_BASE_URL = "https://ratings-api.uschess.org/api/v1/members"
 
 
-class UscfApiTournamentSource:
-    """Fetches tournament sections from ratings-api.uschess.org."""
+class UscfApiGameSource:
+    """Fetches games from ratings-api.uschess.org."""
 
     def __init__(self, base_url: str = DEFAULT_BASE_URL) -> None:
         self._base_url = base_url.rstrip("/")
@@ -27,11 +27,11 @@ class UscfApiTournamentSource:
         self, player_id: str, offset: int, page_size: int = DEFAULT_PAGE_SIZE
     ) -> Page:
         url = (
-            f"{self._base_url}/{player_id}/sections"
+            f"{self._base_url}/{player_id}/games"
             f"?offset={offset}&pageSize={page_size}"
         )
         data = self._get_json(url, offset)
-        items = [Tournament(raw=record) for record in data.get("items", [])]
+        items = [Game(raw=record) for record in data.get("items", [])]
         return Page(
             items=items,
             has_next_page=bool(data.get("hasNextPage", False)),
@@ -43,10 +43,10 @@ class UscfApiTournamentSource:
             with urllib.request.urlopen(url) as response:
                 return json.loads(response.read().decode())
         except urllib.error.HTTPError as exc:
-            raise TournamentSourceError(
+            raise GameSourceError(
                 f"HTTP error {exc.code} fetching offset {offset}: {exc.reason}"
             ) from exc
         except urllib.error.URLError as exc:
-            raise TournamentSourceError(
+            raise GameSourceError(
                 f"URL error fetching offset {offset}: {exc.reason}"
             ) from exc

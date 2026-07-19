@@ -3,5 +3,5 @@
 from __future__ import annotations
 
 
-class TournamentSourceError(Exception):
-    """Raised when a tournament source cannot deliver the requested data."""
+class GameSourceError(Exception):
+    """Raised when a game source cannot deliver the requested data."""

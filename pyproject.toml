@@ -11,7 +11,7 @@ requires-python = ">=3.10"
 license = { file = "LICENSE" }
 
 [project.scripts]
-uscf = "uscf.adapters.inbound.cli:main"
+uscf-games = "uscf.adapters.inbound.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

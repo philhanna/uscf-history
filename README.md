@@ -48,9 +48,9 @@ For development (editable install plus test dependencies), use `pip install -e .
 ## Usage
 
 ```bash
-uscf <player_id>                      # JSON to stdout
-uscf <player_id> --output history.json
-uscf <player_id> --indent 0           # compact JSON
+uscf-games <player_id>                      # JSON to stdout
+uscf-games <player_id> --output history.json
+uscf-games <player_id> --indent 0           # compact JSON
 ```
 
 Equivalent invocation:

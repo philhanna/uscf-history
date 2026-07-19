@@ -8,7 +8,8 @@ import pytest
 from uscf.adapters.outbound.stderr_reporter import SilentProgressReporter
 from uscf.application.use_cases import fetch_player_history
 from uscf.domain.errors import GameSourceError
-from uscf.domain.models import Game, Page
+from uscf.domain.game import Game
+from uscf.domain.page import Page
 
 
 class FakeGameSource:

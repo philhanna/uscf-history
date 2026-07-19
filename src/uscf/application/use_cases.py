@@ -7,7 +7,8 @@ page) but nothing about HTTP, JSON, or the console.
 from __future__ import annotations
 
 from uscf.application.ports import GameSource, ProgressReporter
-from uscf.domain.models import Game, PlayerHistory
+from uscf.domain.game import Game
+from uscf.domain.player_history import PlayerHistory
 
 DEFAULT_PAGE_SIZE = 100  # US Chess API maximum
 

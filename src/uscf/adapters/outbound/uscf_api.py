@@ -12,7 +12,8 @@ import urllib.request
 
 from uscf.application.use_cases import DEFAULT_PAGE_SIZE
 from uscf.domain.errors import GameSourceError
-from uscf.domain.models import Game, Page
+from uscf.domain.game import Game
+from uscf.domain.page import Page
 
 DEFAULT_BASE_URL = "https://ratings-api.uschess.org/api/v1/members"
 

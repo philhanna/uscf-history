@@ -9,7 +9,8 @@ from __future__ import annotations
 
 from typing import Protocol
 
-from uscf.domain.models import Page, PlayerHistory
+from uscf.domain.page import Page
+from uscf.domain.player_history import PlayerHistory
 
 
 class GameSource(Protocol):

@@ -9,7 +9,7 @@ import json
 import sys
 from typing import TextIO
 
-from uscf.domain.models import PlayerHistory
+from uscf.domain.player_history import PlayerHistory
 
 
 class JsonHistoryWriter:

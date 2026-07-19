@@ -49,7 +49,7 @@ def _parse_args(argv: list[str] | None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Fetch complete US Chess game history for a player."
     )
-    parser.add_argument("player_id", help="US Chess member ID (e.g. 12877028)")
+    parser.add_argument("player_id", help="US Chess member ID (e.g. 12910923)")
     parser.add_argument(
         "--output",
         "-o",
